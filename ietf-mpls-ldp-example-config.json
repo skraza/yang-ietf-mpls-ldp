@@ -1,0 +1,55 @@
+{
+  "ietf-interfaces:interfaces": {
+    "interface": [
+      {
+        "name": "eth1",
+        "description": "An interface with LDP enabled.",
+        "type": "iana-if-type:ethernetCsmacd",
+        "ietf-ip:ipv6": {
+          "address": [
+            {
+              "ip": "2001:db8:0:1::1",
+              "prefix-length": 64
+            }
+          ],
+          "forwarding": true
+        }
+      }
+    ]
+  },
+  "ietf-routing:routing": {
+    "router-id": "203.0.113.1",
+    "control-plane-protocols": {
+      "control-plane-protocol": [
+        {
+          "type": "ietf-mpls-ldp:mpls-ldp",
+          "name": "ldp-1",
+          "ietf-mpls-ldp:mpls-ldp": {
+            "global": {
+              "address-families": {
+                "ietf-mpls-ldp-extended:ipv6": {
+                  "enabled": true,
+                  "transport-address": "2001:db8:0:1::1"
+                }
+              }
+            },
+            "discovery": {
+              "interfaces": {
+                "interface": [
+                  {
+                    "name": "eth1",
+                    "address-families": {
+                      "ietf-mpls-ldp-extended:ipv6": {
+                        "enabled": true
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
